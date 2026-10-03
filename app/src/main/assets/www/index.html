@@ -534,7 +534,7 @@ Query.prototype.run=async function(){
     }
     // خطأ HTTP من الخادم لا يعني أن الإنترنت مقطوع؛ أعد الخطأ كما هو.
     // لا نضيف العملية إلى قائمة المزامنة إلا عند انقطاع/فشل الشبكة فعليًا.
-    if(isNetworkFailure(r)){setNetState(false);return localQuery(qy)}else return r;
+    if(isNetworkFailure(r)){setNetState(false);}else return r;
     return r;
   }
   // Offline write: apply immediately to local cache and enqueue for later.
