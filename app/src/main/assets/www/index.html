@@ -684,10 +684,6 @@ async function resetLocalDataForV22(){
 }
 async function start(){
   try{
-    if(localStorage.getItem('noaman_data_reset_v22')!=='done'){
-      await resetLocalDataForV22();
-      localStorage.setItem('noaman_data_reset_v22','done');
-    }
     const cached=sess();
     if(cached?.access_token||cached?.refresh_token){
       if(navigator.onLine){await refreshSession();await loadRoleFromServer()}
