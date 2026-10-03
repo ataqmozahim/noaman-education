@@ -812,7 +812,7 @@ async function setNextSerial(table,id,editingId){
 }
 
 async function students(){
-  let s=await schoolList();
+  let s=[];
   const subs=[['quran','القرآن الكريم'],['islamic','التربية الإسلامية'],['arabic','اللغة العربية'],['english','اللغة الإنجليزية'],['math','الرياضيات'],['science','العلوم'],['social','الاجتماعيات'],['behavior','السلوك']];
   main.innerHTML='<div class="card"><h2>🎓 قاعدة بيانات الطلاب</h2><div class="grid student-info-grid">'
     +'<div class="serial-field"><label>رقم المسلسل</label><input id="sserial" readonly tabindex="-1" aria-readonly="true" onkeydown="return false" onpaste="return false" oninput="this.value=this.defaultValue"></div>'
@@ -825,7 +825,7 @@ async function students(){
     +'<p class="muted">أدخل الدرجة النهائية لكل مادة من 100 فقط. الحقول الفارغة لا تؤثر في النتيجة.</p>'
     +'<button class="btn primary" onclick="saveStudent()">💾 حفظ الطالب</button><button class="btn light" onclick="clearStudent()">➕ إضافة جديد</button></div>'
     +'<div class="card"><input id="sq" placeholder="🔎 البحث بالاسم أو العام الدراسي أو القسم" oninput="loadStudents()"><div class="table"><table><thead><tr><th>الرقم</th><th>الاسم</th><th>الجنس</th><th>الصف</th><th>المدرسة</th><th>العام</th><th>القسم</th><th>القرآن</th><th>الإسلامية</th><th>العربية</th><th>الإنجليزية</th><th>الرياضيات</th><th>العلوم</th><th>الاجتماعيات</th><th>السلوك</th><th>المجموع</th><th>النسبة</th><th>النتيجة</th><th>الإجراء</th></tr></thead><tbody id="sr"></tbody></table></div></div>';
-  attachStudentPreview();watchDraft('students');restoreDraft('students');await loadStudents();await setNextSerial('students','sserial',studentEdit)
+   schoolList().then(list=>{const ss=document.getElementById("ss");if(ss)ss.insertAdjacentHTML("beforeend",list.map(x=>'<option value="'+x.id+'">'+esc(x.name)+'</option>').join(""));}).catch(()=>{});attachStudentPreview();watchDraft('students');restoreDraft('students');await loadStudents();await setNextSerial('students','sserial',studentEdit)
 }
 function semScore(id){let x=V(id);return x===""?null:Number(x)}
 function calcSemester(sub){let a=semScore('f1_'+sub+'_r'),b=semScore('f1_'+sub+'_e'),c=semScore('f2_'+sub+'_r'),d=semScore('f2_'+sub+'_e');if($('f1_'+sub+'_t'))$('f1_'+sub+'_t').value=(a==null&&b==null)?'':((a||0)+(b||0));if($('f2_'+sub+'_t'))$('f2_'+sub+'_t').value=(c==null&&d==null)?'':((c||0)+(d||0))}
